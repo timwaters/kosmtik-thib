@@ -1,99 +1,326 @@
-var TILELAYERS = [
-    ['http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 'OpenStreetMap'],
-    ['http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', 'Humanitarian'],
-    ['http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', 'Outdoors'],
-    ['http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', 'OSM-Fr'],
-    ['http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}', 'OSM Roads'],
-    ['http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png', 'Landscape'],
-    ['http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', 'Toner'],
-    ['http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', 'Transport'],
-    ['http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', 'MapQuest Open'],
-    ['http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', 'OpenCycleMap'],
-    ['http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', 'Watercolor'],
-    ['http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png', 'hikebikemap'],
-    ['http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=982c82cc765f42cf950a57de0d891076', 'Lyrk'],
-    ['http://www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', 'OSM monochrome'],
-    ['http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', 'Hydda'],
-    ['http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 'OpenTopoMap'],
-    ['http://{s}.tile.openstreetmap.fr/openriverboatmap/{z}/{x}/{y}.png', 'OpenRiverboatMap'],
-    ['http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', 'OSM - Deutschland'],
-];
+/*
+L.Kosmtik.ExportFormatChooser = L.FormBuilder.Select.extend({
 
+    getOptions: function () {
+        return L.K.Config.exportFormats.map(function (item) {
+            return [item, item];
+        });
+    }
+
+});*/
+/*
+L.Kosmtik.ExportScaleChooser = L.FormBuilder.IntSelect.extend({
+
+    getOptions: function () {
+        return [1, 2, 3, 4, 5].map(function (item) {return [item, item];});
+    }
+
+});*/
+/*
+L.Kosmtik.ExportZoomChooser = L.FormBuilder.IntSelect.extend({
+
+    getOptions: function () {
+        var choices = [[-1, 'Current zoom']];
+        for (var i = 0; i <= (L.K.Config.project.maxZoom||18); i++) {
+            choices.push([i, i]);
+        }
+        return choices;
+    }
+
+});
+*/
+L.Kosmtik.ExportPageFormatChooser = L.FormBuilder.Select.extend({
+
+    getOptions: function () {
+        return ['A4', 'A3', "letter"].map(function (item) {return [item, item];});
+    }
+
+});
+
+
+L.K.Printer = L.Class.extend({
+
+    shapeOptions: {
+        dashArray: '10,10',
+        color: '#444',
+        fillColor: '#444',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.7,
+        stroke: false
+    },
+
+    vertexOptions: {
+        icon: L.divIcon(),
+        draggable: true
+    },
+
+    params: {
+        showExtent: false,
+        format: 'png',
+        width: 500,
+        height: 500,
+        scale: 1,
+        zoom: -1,
+        pageformat: 'A4'
+    },
+
+    editableParams: {
+        'xml': [],
+        'mml': []
+    },
+    
+
+    elementDefinitions: {
+        showExtent: {handler: L.K.Switch, label: 'Show export extent on the map.'},
+        width: {handler: 'IntInput', helpText: 'Width of the export, in px.'},
+        height: {handler: 'IntInput', helpText: 'Height of the export, in px.'},
+        scale: {handler: L.Kosmtik.ExportScaleChooser, helpText: 'Scale the rendered image.'},
+        pageformat: {handler: L.Kosmtik.ExportPageFormatChooseer, helpText: 'Choose the export page format.'}
+    },
+
+    initialize: function (map, options) {
+        L.setOptions(this, options);
+        this.map = map;
+       /* this.elementDefinitions.format = {handler: L.K.ExportFormatChooser, helpText: 'Choose the export format', callback: this.buildForm, callbackContext: this};*/
+        this.elementDefinitions.zoom = {handler: L.K.ExportZoomChooser, helpText: 'Choose the zoom to use', map: map};
+        this.elementDefinitions.pageformat = {handler: L.K.ExportPageFormatChooser, helpText: 'Choose the page format to use',  callback: this.buildForm, callbackContext: this};
+        this.initSidebar();
+        this.initExtentLayer();
+    },
+
+    initSidebar: function () {
+        var container = L.DomUtil.create('div', 'print-container'),
+            title = L.DomUtil.create('h3', '', container),
+            formContainer = L.DomUtil.create('div', 'parameters-chooser', container);
+        title.innerHTML = 'Print';
+        this.builder = new L.K.FormBuilder(this.params, []);
+        formContainer.appendChild(this.builder.build());
+        
+        
+        
+    	// Create the print provider, subscribing to print events
+    /*    var printProvider = L.print.provider({
+     	   method: 'GET',
+     	   url: ' http://path/to/mapfish/print',
+     	   autoLoad: true,
+     	   dpi: 90
+     	});
+
+     var printControl = L.control.print({
+     	   provider: printProvider
+     	});        
+     	map.addControl(printControl);
+*/
+
+
+     	
+     	
+     	
+    	
+        var submit = L.DomUtil.create('a', 'button', container);
+        submit.innerHTML = 'Print Map';
+        L.DomEvent
+            .on(submit, 'click', L.DomEvent.stop)
+            .on(submit, 'click', function () {
+                window.open('./export/?' + this.getQueryString());
+            }, this);
+        this.buildForm();
+        this.map.sidebar.addTab({
+            label: 'Print',
+            content: container,
+            className: 'printer'
+        });
+        this.map.sidebar.rebuild();
+        this.map.commands.add({
+            callback: this.openSidebar,
+            context: this,
+            name: 'Export: configure'
+        });
+        
+        
+    },
+
+    openSidebar: function () {
+        this.map.sidebar.open('.printer');
+    },
+
+    buildForm: function () {
+        var elements = [/*['format', this.elementDefinitions.format],*/['page format', this.elementDefinitions.pageformat]];
+        var extraElements = this.editableParams[this.params.format] || [/*'zoom', 'scale',*/ 'showExtent'];
+        for (var i = 0; i < extraElements.length; i++) {
+            elements.push([extraElements[i], this.elementDefinitions[extraElements[i]]]);
+        }
+        this.builder.setFields(elements);
+        this.builder.build();
+    },
+
+    initExtentLayer: function () {
+        var center = this.map.getCenter(),
+            size = this.map.getSize();
+        if (this.params.pageformat === 'A4')   	{this.params.width = 248;
+        										this.params.height = 350.8;}
+        if (this.params.pageformat === 'A3')   	{this.params.width = 20;
+		this.params.height = 20;}
+        this.extentLayer = L.featureGroup();
+        this.shape = L.polygon([], this.shapeOptions).addTo(this.extentLayer);
+        this.leftTop = L.marker(center, this.vertexOptions).addTo(this.extentLayer);
+        this.leftBottom = L.marker(center, this.vertexOptions).addTo(this.extentLayer);
+        this.rightBottom = L.marker(center, this.vertexOptions).addTo(this.extentLayer);
+        this.rightTop = L.marker(center, this.vertexOptions).addTo(this.extentLayer);
+        this.extentCaption = L.DomUtil.create('div', 'extent-caption', this.map._panes.markerPane);
+        this.setExtentCaptionPosition();
+        var formerLat =  0;
+        var formerLng =  0;
+        this.leftTop.on('drag', function (e) {
+        	this.leftBottom.setLatLng([this.leftBottom._latlng.lat, e.target._latlng.lng]);
+            this.rightTop.setLatLng([e.target._latlng.lat, this.rightTop._latlng.lng]);
+            this.drawFromLatLngs();
+        }, this);
+        this.leftBottom.on('drag', function (e) {
+            this.leftTop.setLatLng([this.leftTop._latlng.lat, e.target._latlng.lng]);
+            this.rightBottom.setLatLng([e.target._latlng.lat, this.rightBottom._latlng.lng]);
+            this.drawFromLatLngs();
+        }, this);
+        this.rightBottom.on('drag', function (e) {
+            this.leftBottom.setLatLng([e.target._latlng.lat, this.leftBottom._latlng.lng]);
+            this.rightTop.setLatLng([this.rightTop._latlng.lat, e.target._latlng.lng]);
+            this.drawFromLatLngs();
+        }, this);
+        this.rightTop.on('drag', function (e) {
+            this.rightBottom.setLatLng([this.rightBottom._latlng.lat, e.target._latlng.lng]);
+            this.leftTop.setLatLng([e.target._latlng.lat, this.leftTop._latlng.lng]);
+            this.drawFromLatLngs();
+        }, this);
+        this.builder.on('synced', function (e) {
+            if (e.field === 'showExtent') this.toggleExtent();
+            else if (e.field === 'zoom' ||e.field === 'scale') this.setExtentCaptionContent();
+        }, this);
+        this.drawFromCenter();
+    },
+
+    drawFromCenter: function () {
+        var centerPoint = this.map.latLngToLayerPoint(this.map.getCenter()),
+            left = centerPoint.x - this.params.width / 2,
+            right = centerPoint.x + this.params.width / 2,
+            top = centerPoint.y - this.params.height / 2,
+            bottom = centerPoint.y + this.params.height / 2,
+            leftTop = this.map.layerPointToLatLng([left, top]),
+            leftBottom = this.map.layerPointToLatLng([left, bottom]),
+            rightBottom = this.map.layerPointToLatLng([right, bottom]),
+            rightTop = this.map.layerPointToLatLng([right, top]);
+            this.drawFromLatLngs(leftTop, leftBottom, rightBottom, rightTop);
+    },
+
+    drawFromLatLngs: function (leftTop, leftBottom, rightBottom, rightTop) {
+        leftTop = leftTop ||this.leftTop.getLatLng();
+        leftBottom = leftBottom ||this.leftBottom.getLatLng();
+        rightBottom = rightBottom ||this.rightBottom.getLatLng();
+        rightTop = rightTop ||this.rightTop.getLatLng();
+        this.shape.setLatLngs([
+            [[90, -180], [-90, -180], [-90, 180], [90, 180]],
+            [leftTop, leftBottom, rightBottom, rightTop]
+        ]);
+        this.leftTop.setLatLng(leftTop);
+        this.leftBottom.setLatLng(leftBottom);
+        this.rightBottom.setLatLng(rightBottom);
+        this.rightTop.setLatLng(rightTop);
+        this.setExtentCaptionPosition();
+        this.setExtentCaptionContent();
+    },
+
+    showExtent: function () {
+        this.extentLayer.addTo(this.map);
+        if (this.getExtentSize().x) this.drawFromLatLngs();
+        else this.drawFromCenter();
+        this.map.on('zoomend', this.updateExtentSize, this);
+        this.map.on('zoomanim', this._zoomAnimation, this);
+        L.DomUtil.addClass(this.extentCaption, 'show');
+    },
+
+    hideExtent: function () {
+        this.map.removeLayer(this.extentLayer);
+        L.DomUtil.removeClass(this.extentCaption, 'show');
+        this.map.off('zoomend', this.updateExtentSize, this);
+        this.map.off('zoomanim', this._zoomAnimation, this);
+    },
+
+    toggleExtent: function () {
+        if (this.params.showExtent) this.showExtent();
+        else this.hideExtent();
+    },
+
+    setExtentCaptionPosition: function () {
+        var position = this.map.latLngToLayerPoint(this.leftBottom.getLatLng());
+        L.DomUtil.setPosition(this.extentCaption, position);
+    },
+
+    setExtentCaptionContent: function () {
+        var size = this.getExtentSize();
+        this.params.width = size.x;
+        this.params.height = size.y;
+        var params = this.computeParams();
+        this.extentCaption.innerHTML = params.width + "px / " + params.height + "px";
+    },
+
+    getExtentSize: function() {
+        var topLeft = this.map.latLngToLayerPoint(this.leftTop.getLatLng()),
+            bottomRight = this.map.latLngToLayerPoint(this.rightBottom.getLatLng());
+        return L.point(Math.abs(bottomRight.x - topLeft.x), Math.abs(bottomRight.y - topLeft.y))
+    },
+
+    updateExtentSize: function() {
+        this.setExtentCaptionPosition();
+        this.setExtentCaptionContent();
+    },
+
+    toBBoxString: function () {
+        return [
+            this.leftBottom.getLatLng().lng,
+            this.leftBottom.getLatLng().lat,
+            this.rightTop.getLatLng().lng,
+            this.rightTop.getLatLng().lat]
+    },
+/*
+    computeParams: function () {
+    	var params = L.extend({}, this.params), factor;
+        params.bounds = this.toBBoxString();
+        params.width = 10;
+        params.height = 10;
+    },
+    */
+    
+    
+    computeParams: function () {
+        var params = L.extend({}, this.params),
+            factor;
+        params.bounds = this.toBBoxString();
+        params.width = params.width * +params.scale;
+        params.height = params.height * +params.scale;
+        if (params.zoom != -1) {
+            factor = Math.pow(2, Math.abs(params.zoom - this.map.getZoom()));
+            if (params.zoom < this.map.getZoom()) factor = 1 / factor;
+            params.width = params.width * factor;
+            params.height = params.height * factor;
+        }
+        params.width = Math.round(params.width);
+        params.height = Math.round(params.height);
+        return params;
+    },
+
+    getQueryString: function () {
+        return L.K.buildQueryString(this.computeParams());
+    },
+
+    _zoomAnimation: function (e) {
+        var position = this.map._latLngToNewLayerPoint(this.leftBottom._latlng, e.zoom, e.center).round();
+        L.DomUtil.setPosition(this.extentCaption, position);
+    }
+
+});
 
 L.K.Map.addInitHook(function () {
     this.whenReady(function () {
-        var container = L.DomUtil.create('div', 'map-compare-container'),
-            title = L.DomUtil.create('h3', '', container),
-            params = {
-                tms: false,
-                url: '',
-                suggestedUrl: L.K.Config.project.compareUrl,
-                active: false,
-                minZoom: this.options.minZoom,
-                maxZoom: this.options.maxZoom
-            };
-        title.innerHTML = 'Print';
-        var tilelayer, otherMap,
-            init = function () {
-                var container = L.DomUtil.create('div', 'map-compare', document.body);
-                container.id = 'mapCompare';
-                otherMap = L.map(container.id, {attributionControl: false});
-                tilelayer = L.tileLayer(L.K.Config.project.compareUrl, params).addTo(otherMap);
-                new L.Hash(otherMap);
-            };
-        var builder = new L.K.FormBuilder(params, [
-            /*['active', {handler: L.K.Switch, label: 'Active (ctrl+alt+C)'}],
-            ['tms', {handler: L.K.Switch, label: 'TMS format.'}],
-            ['suggestedUrl', {handler: 'Select', helpText: 'Choose a map in the list…', selectOptions: TILELAYERS}],
-            ['url', {handler: 'BlurInput', helpText: '… or set a custom URL template.'}]*/
-        ], {id: 'compare-form'});
-        // TODO vertical / horizontal view
-        var toggle = function () {
-            if (params.active) {
-                if (!otherMap) init();
-                L.DomUtil.addClass(document.body, 'map-compare-on');
-                otherMap.invalidateSize();
-                this.invalidateSize();
-            } else {
-                L.DomUtil.removeClass(document.body, 'map-compare-on');
-                this.invalidateSize();
-            }
-        };
-        var setUrl = function () {
-            if (!otherMap) init();
-            tilelayer.setUrl(params.url || params.suggestedUrl);
-        };
-        builder.on('synced', function (e) {
-            if (e.field === 'active') {
-                L.bind(toggle, this)();
-            } else if (e.field === 'url' || e.field === 'suggestedUrl') {
-                setUrl();
-            }
-        }, this);
-        container.appendChild(builder.build());
-        this.sidebar.addTab({
-            label: 'Print',
-            className: 'compare',
-            content: container
-        });
-        this.sidebar.rebuild();
-        var commandCallback = function () {
-            params.active = !params.active;
-            L.bind(toggle, this)();
-            builder.fetchAll();
-        };
-        this.commands.add({
-            keyCode: L.K.Keys.C,
-            ctrlKey: true,
-            altKey: true,
-            callback: commandCallback,
-            context: this,
-            name: 'Map compare: toggle view'
-        });
-        this.commands.add({
-            callback: function () {this.sidebar.open('.compare');},
-            context: this,
-            name: 'Map compare: configure'
-        });
+        this.exportExtent = new L.K.Printer(this);
     });
 });
