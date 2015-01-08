@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # kosmtik-map-compare
 
 Compare your work in progress side-by-side with another
@@ -21,3 +22,6 @@ files to set the default URL used. Fallback to OSM default style.
 ## Issues and feature requests
 
 Please report any issue or feature request on the [main kosmtik repository](https://github.com/kosmtik/kosmtik/issues).
+=======
+# kosmtik-thib
+>>>>>>> 022f68328a767fb24856591e822c114f9eb469de
