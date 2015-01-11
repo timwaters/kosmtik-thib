@@ -4,12 +4,6 @@ exports.Plugin = function (config) {
     config.on('project:tofront', patchConfig);
     config.on('server:init', function () {
                                             config.server.addProjectRoute('/exportPdf', buttonAction);});
-    console.log("PouetPouet");
-/*
-    config.commands.export = config.opts.command('exportPdf').help('Export a project');
-    config.on('command:exportPdf', this.buttonAction);*/
-
-
 };
 
 var patchConfig = function (e) {
@@ -21,6 +15,6 @@ buttonAction = function  (req, res, project) {
     res.writeHead(200, {
                            
                         });
-    res.write('PouetPouet');
+    res.write('The on-click function is ready');
     res.end();
 };
