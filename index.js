@@ -15,6 +15,7 @@ exports.Plugin = function (config) {
 var patchConfig = function (e) {
     e.options.compareUrl = e.project.mml.compareUrl ||this.userConfig.compareUrl || 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 };
+<<<<<<< HEAD
 
 buttonAction = function  (req, res, project) {
     console.log("PouetPouet");
@@ -24,3 +25,5 @@ buttonAction = function  (req, res, project) {
     res.write('PouetPouet');
     res.end();
 };
+=======
+>>>>>>> a3f2a5582f4d999495720476e3c1cb38e8c1c06d

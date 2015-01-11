@@ -64,7 +64,11 @@ L.K.Printer = L.Class.extend({
         title.innerHTML = 'Print';
         this.builder = new L.K.FormBuilder(this.params, []);
         formContainer.appendChild(this.builder.build());
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> a3f2a5582f4d999495720476e3c1cb38e8c1c06d
         var submit = L.DomUtil.create('a', 'button', container);
         submit.innerHTML = 'Print Map';
         L.DomEvent
@@ -228,7 +232,11 @@ L.K.Printer = L.Class.extend({
             this.rightTop.getLatLng().lng,
             this.rightTop.getLatLng().lat]
     },
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a3f2a5582f4d999495720476e3c1cb38e8c1c06d
     computeParams: function () {
         var params = L.extend({}, this.params),
             factor;
