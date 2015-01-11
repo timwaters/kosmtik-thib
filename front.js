@@ -1,34 +1,3 @@
-/*
-L.Kosmtik.ExportFormatChooser = L.FormBuilder.Select.extend({
-
-    getOptions: function () {
-        return L.K.Config.exportFormats.map(function (item) {
-            return [item, item];
-        });
-    }
-
-});*/
-/*
-L.Kosmtik.ExportScaleChooser = L.FormBuilder.IntSelect.extend({
-
-    getOptions: function () {
-        return [1, 2, 3, 4, 5].map(function (item) {return [item, item];});
-    }
-
-});*/
-/*
-L.Kosmtik.ExportZoomChooser = L.FormBuilder.IntSelect.extend({
-
-    getOptions: function () {
-        var choices = [[-1, 'Current zoom']];
-        for (var i = 0; i <= (L.K.Config.project.maxZoom||18); i++) {
-            choices.push([i, i]);
-        }
-        return choices;
-    }
-
-});
-*/
 L.Kosmtik.ExportPageFormatChooser = L.FormBuilder.Select.extend({
 
     getOptions: function () {
@@ -82,7 +51,6 @@ L.K.Printer = L.Class.extend({
     initialize: function (map, options) {
         L.setOptions(this, options);
         this.map = map;
-       /* this.elementDefinitions.format = {handler: L.K.ExportFormatChooser, helpText: 'Choose the export format', callback: this.buildForm, callbackContext: this};*/
         this.elementDefinitions.zoom = {handler: L.K.ExportZoomChooser, helpText: 'Choose the zoom to use', map: map};
         this.elementDefinitions.pageformat = {handler: L.K.ExportPageFormatChooser, helpText: 'Choose the page format to use',  callback: this.buildForm, callbackContext: this};
         this.initSidebar();
@@ -97,33 +65,12 @@ L.K.Printer = L.Class.extend({
         this.builder = new L.K.FormBuilder(this.params, []);
         formContainer.appendChild(this.builder.build());
         
-        
-        
-    	// Create the print provider, subscribing to print events
-    /*    var printProvider = L.print.provider({
-     	   method: 'GET',
-     	   url: ' http://path/to/mapfish/print',
-     	   autoLoad: true,
-     	   dpi: 90
-     	});
-
-     var printControl = L.control.print({
-     	   provider: printProvider
-     	});        
-     	map.addControl(printControl);
-*/
-
-
-     	
-     	
-     	
-    	
         var submit = L.DomUtil.create('a', 'button', container);
         submit.innerHTML = 'Print Map';
         L.DomEvent
             .on(submit, 'click', L.DomEvent.stop)
             .on(submit, 'click', function () {
-                window.open('./export/?' + this.getQueryString());
+                window.location.href = "./exportPdf";
             }, this);
         this.buildForm();
         this.map.sidebar.addTab({
@@ -281,15 +228,6 @@ L.K.Printer = L.Class.extend({
             this.rightTop.getLatLng().lng,
             this.rightTop.getLatLng().lat]
     },
-/*
-    computeParams: function () {
-    	var params = L.extend({}, this.params), factor;
-        params.bounds = this.toBBoxString();
-        params.width = 10;
-        params.height = 10;
-    },
-    */
-    
     
     computeParams: function () {
         var params = L.extend({}, this.params),
