@@ -5,10 +5,6 @@ exports.Plugin = function (config) {
     config.on('server:init', function () {
                                             config.server.addProjectRoute('/exportPdf', buttonAction);});
     console.log("PouetPouet");
-/*
-    config.commands.export = config.opts.command('exportPdf').help('Export a project');
-    config.on('command:exportPdf', this.buttonAction);*/
-
 
 };
 
