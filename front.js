@@ -64,17 +64,13 @@ L.K.Printer = L.Class.extend({
         title.innerHTML = 'Print';
         this.builder = new L.K.FormBuilder(this.params, []);
         formContainer.appendChild(this.builder.build());
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> a3f2a5582f4d999495720476e3c1cb38e8c1c06d
         var submit = L.DomUtil.create('a', 'button', container);
         submit.innerHTML = 'Print Map';
         L.DomEvent
             .on(submit, 'click', L.DomEvent.stop)
             .on(submit, 'click', function () {
-                window.location.href = "./exportPdf";
+                window.open('./exportPdf');
             }, this);
         this.buildForm();
         this.map.sidebar.addTab({
