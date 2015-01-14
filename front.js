@@ -70,7 +70,7 @@ L.K.Printer = L.Class.extend({
         L.DomEvent
             .on(submit, 'click', L.DomEvent.stop)
             .on(submit, 'click', function () {
-                window.location.href = "./exportPdf";
+                window.open("./exportPdf");
             }, this);
         this.buildForm();
         this.map.sidebar.addTab({
