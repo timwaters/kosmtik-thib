@@ -5,7 +5,7 @@ This plugin is used to print maps from Kosmtik
 # install on Linux
 
 <br/><br/>
-  Step 1  : Download and Install Kosmtik followong the instructions on this Kosmtik web page
+  Step 1  : Download and Install Kosmtik followong the instructions on this Kosmtik web page<br/>
 <br/>
 https://github.com/kosmtik/kosmtik
 
