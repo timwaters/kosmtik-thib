@@ -25,7 +25,7 @@ and then:<br/>
 <i>gedit /root/.config/kosmtik.yml</i>
 <br/><br/>
 Add the following line to the file and save<br/>
-<div style="background-color:gray">  - kosmtik-thib</div>
+<div>  - kosmtik-thib</div>
   
 <br/><br/>
   Step 4 : Install kosmtik-thib<br/>
