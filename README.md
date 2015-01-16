@@ -5,7 +5,7 @@ This plugin is used to print maps from Kosmtik
 # install on Linux
 
 <br/><br/>
-  Step 1  : Download and Install Kosmtik followong the instructions on this Kosmtik web page<br/>
+  Step 1  : Download and Install Kosmtik following the instructions on this Kosmtik web page<br/>
 <br/>
 https://github.com/kosmtik/kosmtik
 
@@ -13,18 +13,18 @@ https://github.com/kosmtik/kosmtik
   Step 2 : Download and install kosmtik-overpass-layer and kosmtik-fetch-remote<br/><br/>
 <br/>
 Run the following commands on Kosmtik's folder:<br/>
-"npm install kosmtik-overpass-layer"<br/>
-"npm install kosmtik-fetch-remote"
+<i>npm install kosmtik-overpass-layer</i><br/>
+<i>npm install kosmtik-fetch-remote</i>
 
 <br/><br/>
   Step 3 : Add the plugin to the file /etc/.config/kosmtik.yml<br/>
 <br/>
 Run the following commands:<br/>
-"sudo -i"<br/>
+<i>sudo -i</i><br/>
 and then:<br/>
-"gedit /root/.config/kosmtik.yml"
-<br/>
-Add the following line to the file and save
+<i>gedit /root/.config/kosmtik.yml</i>
+<br/><br/>
+Add the following line to the file and save<br/>
   - kosmtik-thib
   
 <br/><br/>
@@ -33,8 +33,7 @@ Add the following line to the file and save
 Download and unzip file in kosmtik folder or clone/pull it from git
 
 Run the following command line in Kosmtik's folder:<br/>
-"npm install kosmtik-thib"
-
+<i>npm install kosmtik-thib</i>
 <br/><br/>
   Step 5 : Launch Kosmtik<br/>
 <br/>
