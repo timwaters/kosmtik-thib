@@ -17,7 +17,7 @@ npm install kosmtik-fetch-remote
 
 
   Step 3 : Add the plugin to the file /etc/.config/kosmtik.yml
-
+<br/>
 Run the following commands:
 sudo -i
 and then:
