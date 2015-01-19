@@ -14,7 +14,7 @@ https://github.com/kosmtik/kosmtik
 <br/>
 Run the following commands on Kosmtik's folder:<br/>
 ```
-npm install kosmtik-overpass-layer<br/>
+npm install kosmtik-overpass-layer
 npm install kosmtik-fetch-remote
 ```
 <br/><br/>
@@ -22,7 +22,7 @@ npm install kosmtik-fetch-remote
 <br/>
 Run the following commands:<br/>
 ```
-sudo -i<br/>
+sudo -i
 ```
 and then:<br/>
 ```
