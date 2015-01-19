@@ -10,7 +10,7 @@ This plugin is used to print maps from Kosmtik
 https://github.com/kosmtik/kosmtik
 
 <br/><br/>
-  Step 2 : Download and install kosmtik-overpass-layer and kosmtik-fetch-remote>br/>
+  Step 2 : Download and install kosmtik-overpass-layer and kosmtik-fetch-remote<br/>
 <br/>
 Run the following commands on Kosmtik's folder:<br/>
 ```
