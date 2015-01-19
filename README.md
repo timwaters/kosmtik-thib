@@ -5,12 +5,12 @@ This plugin is used to print maps from Kosmtik
 # install on Linux
 
 <br/><br/>
-  <u>Step 1  : Download and Install Kosmtik following the instructions on this Kosmtik web page</u><br/>
+  Step 1  : Download and Install Kosmtik following the instructions on this Kosmtik web page<br/>
 <br/>
 https://github.com/kosmtik/kosmtik
 
 <br/><br/>
-  <u>Step 2 : Download and install kosmtik-overpass-layer and kosmtik-fetch-remote</u>><br/>
+  Step 2 : Download and install kosmtik-overpass-layer and kosmtik-fetch-remote>br/>
 <br/>
 Run the following commands on Kosmtik's folder:<br/>
 ```
@@ -18,7 +18,7 @@ npm install kosmtik-overpass-layer
 npm install kosmtik-fetch-remote
 ```
 <br/><br/>
-  <u>Step 3 : Add the plugin to the file /etc/.config/kosmtik.yml</u><br/>
+  Step 3 : Add the plugin to the file /etc/.config/kosmtik.yml<br/>
 <br/>
 Run the following commands:<br/>
 ```
