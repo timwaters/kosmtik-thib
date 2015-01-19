@@ -13,16 +13,21 @@ https://github.com/kosmtik/kosmtik
   <u>Step 2 : Download and install kosmtik-overpass-layer and kosmtik-fetch-remote</u>><br/>
 <br/>
 Run the following commands on Kosmtik's folder:<br/>
-<i>npm install kosmtik-overpass-layer</i><br/>
-<i>npm install kosmtik-fetch-remote</i>
-
+```
+npm install kosmtik-overpass-layer<br/>
+npm install kosmtik-fetch-remote
+```
 <br/><br/>
   <u>Step 3 : Add the plugin to the file /etc/.config/kosmtik.yml</u><br/>
 <br/>
 Run the following commands:<br/>
-<i>sudo -i</i><br/>
+```
+sudo -i<br/>
+```
 and then:<br/>
-<i>gedit /root/.config/kosmtik.yml</i>
+```
+gedit /root/.config/kosmtik.yml
+```
 <br/><br/>
 Add the following line to the file and save<br/>
 <div>  - kosmtik-thib</div>
@@ -33,7 +38,9 @@ Add the following line to the file and save<br/>
 Download and unzip file in kosmtik folder or clone/pull it from git
 
 Run the following command line in Kosmtik's folder:<br/>
-<i>npm install kosmtik-thib</i>
+```
+npm install kosmtik-thib
+```
 <br/><br/>
   <u>Step 5 : Launch Kosmtik</u><br/>
 <br/>
