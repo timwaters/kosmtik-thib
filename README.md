@@ -33,7 +33,7 @@ Add the following line to the file and save<br/>
 ```
 - kosmtik-thib
 ```
-</br>
+</br></br>
 Caution, this file can also be at the following location : 
 ```
 /home/XXXXXXX/.config/kosmtik.yml
