@@ -30,7 +30,15 @@ gedit /root/.config/kosmtik.yml
 ```
 <br/><br/>
 Add the following line to the file and save<br/>
-<div>  - kosmtik-thib</div>
+```
+- kosmtik-thib
+```
+</br>
+Caution, this file can also be at the following location : 
+```
+/home/XXXXXXX/.config/kosmtik.yml
+```
+replace XXXXXXX by your user name on your device
   
 <br/><br/>
   <u>Step 4 : Install kosmtik-thib</u><br/>
